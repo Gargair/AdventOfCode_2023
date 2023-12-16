@@ -11,6 +11,7 @@ namespace Summary
             StartSolution(new Day01_Solution());
             StartSolution(new Day02_Solution());
             StartSolution(new Day03_Solution());
+            StartSolution(new Day04_Solution());
 
             timer.Stop();
             Console.WriteLine($"Total: {timer.Elapsed}");
