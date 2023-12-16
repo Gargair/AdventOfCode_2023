@@ -96,7 +96,7 @@ namespace Solution
                                         Console.WriteLine("Foreach started despite abortToken set.");
                                     }
                                     CancellationTokenSource tokenSource = CancellationTokenSource.CreateLinkedTokenSource(abortToken);
-                                    tokenSource.CancelAfter(300000);
+                                    //tokenSource.CancelAfter(300000);
                                     var cancellationToken = tokenSource.Token;
                                     if (abortToken.IsCancellationRequested && !cancellationToken.IsCancellationRequested)
                                     {
@@ -565,18 +565,6 @@ namespace Solution
                     result /= (i + 1);
                 }
                 return result;
-                //var top = 1L;
-                //var bottom = 1L;
-                //for (long i = n; i > n - k; i--)
-                //{
-                //    top *= i;
-                //}
-                //for (long i = 1; i <= k; i++)
-                //{
-                //    bottom *= i;
-                //}
-
-                //return top / bottom;
             }
         }
     }
