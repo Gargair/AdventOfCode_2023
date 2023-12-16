@@ -1,3 +1,108 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Summary
+{
+    internal class Day02_Solution : IDaySolution
+    {
+        public long GetInputSize()
+        {
+            return Input.Split(Environment.NewLine).Length;
+        }
+
+        public long Part1()
+        {
+            var lines = Input.Split(Environment.NewLine);
+            var maxCubes = new Dictionary<string, int>
+            {
+                { "blue", 14 },
+                { "red", 12 },
+                { "green", 13 }
+            };
+            var solution = 0L;
+            for (int i = 0; i < lines.Length; i++)
+            {
+                var line = lines[i];
+                if (CheckIfPlayIsPossible(line, maxCubes))
+                {
+                    solution += i + 1;
+                }
+            }
+            return solution;
+        }
+
+        public long Part2()
+        {
+            var lines = Input.Split(Environment.NewLine);
+
+            var solution = 0L;
+            foreach(var line in lines)
+            {
+                solution += GetPowerOfGame(line);
+            }
+            return solution;
+        }
+
+        private static bool CheckIfPlayIsPossible(string line, Dictionary<string, int> maxCubes)
+        {
+            var splitter = line.IndexOf(':');
+            var game = line.Substring(splitter + 1);
+            var rounds = game.Split(';', StringSplitOptions.TrimEntries);
+            foreach (var round in rounds)
+            {
+                var cubes = round.Split(',', StringSplitOptions.TrimEntries);
+                foreach (var cub in cubes)
+                {
+                    var t = cub.Split(' ');
+                    var count = int.Parse(t[0]);
+                    if (maxCubes.ContainsKey(t[1]))
+                    {
+                        if (count > maxCubes[t[1]])
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Unknown cube {t[1]} found");
+                        return false;
+                    }
+                }
+            }
+            return true;
+
+        }
+
+        private static int GetPowerOfGame(string line)
+        {
+            var splitter = line.IndexOf(':');
+            var game = line.Substring(splitter + 1);
+            var rounds = game.Split(';');
+            var minCubes = new Dictionary<string, int>();
+            foreach (var round in rounds)
+            {
+                var cubes = round.Split(',');
+                foreach (var cub in cubes)
+                {
+                    var t = cub.Trim().Split(' ');
+                    var count = int.Parse(t[0]);
+                    if (!minCubes.ContainsKey(t[1]))
+                    {
+                        minCubes.Add(t[1], count);
+                    }
+                    else if (count > minCubes[t[1]])
+                    {
+                        minCubes[t[1]] = count;
+                    }
+                }
+            }
+            return minCubes.Values.Aggregate((a, b) => a * b);
+        }
+
+        private const string Input = """
 Game 1: 1 green, 2 blue; 13 red, 2 blue, 3 green; 4 green, 14 red
 Game 2: 2 blue, 11 green; 4 blue, 12 red, 4 green; 7 red, 1 blue, 9 green; 10 green, 12 red, 6 blue
 Game 3: 1 blue, 12 green, 2 red; 9 red, 16 green; 1 red, 10 green, 1 blue; 1 red, 14 green
@@ -98,3 +203,6 @@ Game 97: 5 red, 4 blue; 1 blue, 2 red, 9 green; 10 green, 3 red; 4 green, 3 blue
 Game 98: 3 green, 3 blue, 2 red; 2 blue, 2 red, 1 green; 3 green, 5 blue
 Game 99: 11 green, 4 red, 12 blue; 9 red, 4 blue; 20 green, 6 blue
 Game 100: 12 red, 9 green; 12 red; 9 red, 3 green; 8 red, 4 blue, 4 green; 8 blue, 11 red, 2 green
+""";
+    }
+}
