@@ -13,6 +13,7 @@ namespace Summary
             StartSolution(new Day03_Solution());
             StartSolution(new Day04_Solution());
             StartSolution(new Day05_Solution());
+            StartSolution(new Day06_Solution());
 
             timer.Stop();
             Console.WriteLine($"[{DateTime.Now}]: Total: {timer.Elapsed}");
