@@ -20,7 +20,7 @@ namespace Summary
 
             var times = lines[0].Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).Skip(1);
             var distances = lines[1].Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).Skip(1);
-            var races = times.Zip(distances, (time, distance) => (int.Parse(time), int.Parse(distance)));
+            var races = times.Zip(distances, (time, distance) => (long.Parse(time), long.Parse(distance)));
             var numerOfWaysToWin = races.AsParallel().Select((race) =>
             {
                 //n: n >= 0 && n <= race.timeMs && (race.timeMs - n) * n >= race.distance;
@@ -28,8 +28,8 @@ namespace Summary
                 //=> n^2 - n * race.timeMs + race.distance <= 0
                 //=> 1/2 * race.timeMs +- sqrt(1/4 * race.timeMs ^2 - race.distance)
 
-                int min = (int)Math.Ceiling(0.5 * race.Item1 - Math.Sqrt(0.25 * Math.Pow(race.Item1, 2) - race.Item2) + 0.00001);
-                int max = (int)Math.Floor(0.5 * race.Item1 + Math.Sqrt(0.25 * Math.Pow(race.Item1, 2) - race.Item2) - 0.00001);
+                var min = (long)Math.Ceiling(0.5 * race.Item1 - Math.Sqrt(0.25 * Math.Pow(race.Item1, 2) - race.Item2) + 0.00001);
+                var max = (long)Math.Floor(0.5 * race.Item1 + Math.Sqrt(0.25 * Math.Pow(race.Item1, 2) - race.Item2) - 0.00001);
                 return max - min + 1;
             });
             return numerOfWaysToWin.Aggregate((a, b) => a * b);
@@ -42,8 +42,8 @@ namespace Summary
             var times = lines[0].Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).Skip(1);
             var distances = lines[1].Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries).Skip(1);
 
-            var time = long.Parse(times.Aggregate((a, b) => a + b));
-            var distance = long.Parse(distances.Aggregate((a, b) => a + b));
+            var time = long.Parse(times.Aggregate(string.Concat));
+            var distance = long.Parse(distances.Aggregate(string.Concat));
             var min = (long)Math.Ceiling(0.5 * time - Math.Sqrt(0.25 * Math.Pow(time, 2) - distance) + 0.00001);
             var max = (long)Math.Floor(0.5 * time + Math.Sqrt(0.25 * Math.Pow(time, 2) - distance) - 0.00001);
 

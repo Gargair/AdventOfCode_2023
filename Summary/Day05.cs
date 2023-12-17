@@ -42,7 +42,7 @@ namespace Summary
                 }
                 else
                 {
-                    var numbers = line.Split(' ').Select(n => long.Parse(n)).ToArray();
+                    var numbers = line.Split(' ').Select(long.Parse).ToArray();
                     currentMap.Add(new MapEntry()
                     {
                         DestinationStart = numbers[0],
@@ -84,7 +84,7 @@ namespace Summary
             {
                 if (isFirst)
                 {
-                    seedNumbers = line.Split(' ').Skip(1).Select(n => long.Parse(n)).Chunk(2).ToList();
+                    seedNumbers = line.Split(' ').Skip(1).Select(long.Parse).Chunk(2).ToList();
                     isFirst = false;
                 }
                 else if (string.IsNullOrWhiteSpace(line))
@@ -98,7 +98,7 @@ namespace Summary
                 }
                 else
                 {
-                    var numbers = line.Split(' ').Select(n => long.Parse(n)).ToArray();
+                    var numbers = line.Split(' ').Select(long.Parse).ToArray();
                     currentMap.Add(new MapEntry()
                     {
                         DestinationStart = numbers[0],
