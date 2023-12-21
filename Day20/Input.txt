@@ -1,0 +1,15 @@
+broadcaster -> qt
+%qt -> qx, xk
+&qx -> lh, vf, hf, nh, sr, mj, qt
+%xk -> td, qx
+%lh -> mj
+%nh -> lh
+&vf -> jz
+%hf -> nh
+%sr -> hf
+%mj -> zm
+%td -> sr, qx
+%zm -> dv, qx
+%dv -> sl, qx
+%sl -> pk, qx
+%pk -> qx
