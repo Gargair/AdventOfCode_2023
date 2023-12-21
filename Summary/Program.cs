@@ -15,6 +15,7 @@ namespace Summary
             StartSolution(new Day05_Solution());
             StartSolution(new Day06_Solution());
             StartSolution(new Day07_Solution());
+            StartSolution(new Day08_Solution());
 
             timer.Stop();
             Console.WriteLine($"[{DateTime.Now}]: Total: {timer.Elapsed}");
@@ -23,7 +24,7 @@ namespace Summary
         private static void StartSolution(IDaySolution solution)
         {
             var solutionName = solution.GetType().Name;
-            Console.WriteLine($"[{DateTime.Now}]: {solutionName} - Input Size: {solution.GetInputSize()}");
+            Console.WriteLine($"[{DateTime.Now}]: {solutionName}");
             Stopwatch timer = new Stopwatch();
 
             timer.Start();
@@ -42,7 +43,6 @@ namespace Summary
 
     internal interface IDaySolution
     {
-        abstract long GetInputSize();
         abstract long Part1();
         abstract long Part2();
     }
